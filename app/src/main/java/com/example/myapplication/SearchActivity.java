@@ -35,6 +35,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
+    private ProgressBar pb;
 
 
     @Override
@@ -46,20 +47,21 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String query = intent.getStringExtra("query");
 
-
         recyclerView = findViewById(R.id.recycler_view);
         List<Movie> movieList = MovieModel.movieList;
         movieAdapter = new MovieAdapter(movieList, this);
+        pb = findViewById(R.id.loading_spinner);
+        pb.setVisibility(View.VISIBLE);
 
         // LinearLayoutManager 布局管理器负责摆放 Adapter 提供的每一个 ViewHolder。
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(movieAdapter);
 
         OnlineSearchUtil.searchMovies(query, new Callback() {
+
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 runOnUiThread(() -> {
-                    // pb.setVisibility(View.GONE);
                     Toast.makeText(SearchActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
                 });
             }
@@ -92,6 +94,8 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
+
+        pb.setVisibility(View.GONE);
     }
 
 

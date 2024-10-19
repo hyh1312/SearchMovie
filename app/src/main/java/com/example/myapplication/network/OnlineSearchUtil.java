@@ -40,6 +40,7 @@ public class OnlineSearchUtil {
         //通过OkHttpClient和Request对象来构建Call对象
         Call call = client.newCall(request);
         //通过Call对象的enqueue(Callback)方法来执行异步请求
+
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {

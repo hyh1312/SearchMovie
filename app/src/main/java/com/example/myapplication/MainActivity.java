@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText et;
     private Button btn;
-    private ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         et = findViewById(R.id.search_input);
         btn = findViewById(R.id.search_button);
-        pb = findViewById(R.id.loading_spinner); // "炫酷的 UI 效果"
-        pb.setVisibility(View.INVISIBLE);
+
+
 
         et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        pb.setVisibility(View.INVISIBLE);
     }
 
     private void searchMovies(String query) {
@@ -61,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "输入不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        pb.setVisibility(View.VISIBLE);
 
         Intent intent = new Intent(MainActivity.this,SearchActivity.class);
         intent.putExtra("query", query);
