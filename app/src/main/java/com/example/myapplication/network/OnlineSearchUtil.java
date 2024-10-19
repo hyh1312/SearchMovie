@@ -27,8 +27,8 @@ import okhttp3.Response;
 
 public class OnlineSearchUtil {
     private static String URL = "http://www.omdbapi.com/?apikey=858fc655";
-    public static void searchMovies(String query,
-                                    Callback callback) {
+
+    public static void searchMovies(String query, Callback callback) {
 
         //创建OkHttpClient对象
         OkHttpClient client = new OkHttpClient();

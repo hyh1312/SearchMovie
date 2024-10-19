@@ -58,10 +58,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         ImageView imgPoster;
 
         public MovieViewHolder(@NonNull View itemView) {
-            super(itemView); // 传给父类，(RecyclerView.ViewHolder只有含参构造方法)
+            super(itemView); // 传给父类 (因为RecyclerView.ViewHolder只有含参构造方法)
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvYear = itemView.findViewById(R.id.tvYear);
             imgPoster = itemView.findViewById(R.id.imgPoster);
         }
     }
+
 }

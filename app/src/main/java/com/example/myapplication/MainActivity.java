@@ -49,10 +49,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
     private void searchMovies(String query) {
         if (query.isEmpty()) {
