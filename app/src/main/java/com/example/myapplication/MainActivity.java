@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.KeyEvent;
@@ -29,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
         et = findViewById(R.id.search_input);
         btn = findViewById(R.id.search_button);
 
-
-
         et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -49,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void searchMovies(String query) {
         if (query.isEmpty()) {
             Toast.makeText(this, "输入不能为空", Toast.LENGTH_SHORT).show();
@@ -59,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this,SearchActivity.class);
         intent.putExtra("query", query);
         startActivity(intent);
-
-        // pb.setVisibility(View.INVISIBLE);
-        // 如何在切回 MainActivity 的时候再隐藏进度条？
 
     }
 }

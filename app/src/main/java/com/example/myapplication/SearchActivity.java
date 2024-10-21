@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.network.OnlineSearchUtil;
-import com.example.myapplication.ui.model.MovieModel;
+import com.example.myapplication.ui.model.ListModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +30,7 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
     private ProgressBar progressBar; // 改掉了抽象的命名
-    private List<Movie> movieList = MovieModel.movieList;
+    private List<Movie> movieList = ListModel.movieList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,10 @@ public class SearchActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_search);
 
-        Intent intent = getIntent();
-        String query = intent.getStringExtra("query");
+        String query = getIntent().getStringExtra("query");
 
         recyclerView = findViewById(R.id.recycler_view);
-                movieAdapter = new MovieAdapter(movieList, this);
+        movieAdapter = new MovieAdapter(movieList, this);
         progressBar = findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -75,8 +74,8 @@ public class SearchActivity extends AppCompatActivity {
                         String title = movieObject.getString("Title");
                         String year = movieObject.getString("Year");
                         String poster = movieObject.getString("Poster");
-
-                        movieList.add(new Movie(title, year, poster));
+                        String id = movieObject.getString("imdbID");
+                        movieList.add(new Movie(title, year, poster,id));
                     }
 
                     runOnUiThread(() -> {
