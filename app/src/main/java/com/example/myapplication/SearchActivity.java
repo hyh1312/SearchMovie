@@ -124,6 +124,7 @@ public class SearchActivity extends AppCompatActivity {
 */
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onDestroy() {
