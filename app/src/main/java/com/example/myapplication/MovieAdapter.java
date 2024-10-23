@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Movie;
 
 import java.util.List;
 
@@ -38,14 +38,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-
         // 调用位于第 position 项的电影数据，绑定到 holder 相应视图上
         Movie movie = movieList.get(position);
         holder.tvTitle.setText(movie.getTitle());
         holder.tvYear.setText(movie.getYear());
-
         // 使用 Glide 加载电影海报图片
         Glide.with(context).load(movie.getPosterUrl()).into(holder.imgPoster);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra("id", movie.getId());
+            context.startActivity(intent);
+        });
     }
 
     @Override
