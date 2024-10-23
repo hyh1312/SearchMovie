@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -64,19 +63,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
-                    assert response.body() != null;
-                    String jsonData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(jsonData);
-                    JSONArray searchArray = jsonObject.getJSONArray("Search");
-                    movieList.clear();
-                    for (int i = 0; i < searchArray.length(); i++) {
-                        JSONObject movieObject = searchArray.getJSONObject(i);
-                        String title = movieObject.getString("Title");
-                        String year = movieObject.getString("Year");
-                        String poster = movieObject.getString("Poster");
-                        String id = movieObject.getString("imdbID");
-                        movieList.add(new Movie(title, year, poster,id));
-                    }
+                    movieList = SearchViewModel.addList(response);
+                    List<Movie> movieList= ListModel.movieList;
 
                     runOnUiThread(() -> {
                         movieAdapter.notifyDataSetChanged();

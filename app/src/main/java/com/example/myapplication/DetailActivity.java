@@ -23,8 +23,8 @@ public class DetailActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         String id = getIntent().getStringExtra("id"); // id 传过来
-        TextView Title = findViewById(R.id.movie_title);
-        Title.setText(id);
+
+        // id ->(searchutil)-> data ->(viewmodel)-> ui
 
     }
 }
