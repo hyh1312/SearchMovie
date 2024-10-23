@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,8 +24,9 @@ public class DetailActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         String id = getIntent().getStringExtra("id"); // id 传过来
-
+        Toast.makeText(this, id, Toast.LENGTH_LONG).show();
         // id ->(searchutil)-> data ->(viewmodel)-> ui
+
 
     }
 }
