@@ -36,7 +36,11 @@ public class OnlineSearchUtil {
     }
 
     public static void searchMovies(String name, Callback callback) {
-        search(URL + "&s=" + name, callback); // + "&page=" + page 实现下一页（还没写）
+        search(URL + "&s=" + name, callback);
+    }
+
+    public static void searchMoviesByPage(String name,int page, Callback callback) {
+        search(URL + "&s=" + name + "&page=" + page, callback);
     }
 
     public static void searchDetails(String id, Callback callback) {

@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 searchMovies(et.getText().toString().trim());
-
             }
         });
     }
