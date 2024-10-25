@@ -28,14 +28,12 @@ public class MainActivity extends AppCompatActivity {
         et = findViewById(R.id.search_input);
         btn = findViewById(R.id.search_button);
 
-        et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    searchMovies(et.getText().toString().trim());
-                }
-                return false;  // 让系统继续处理其他事件
+        et.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchMovies(et.getText().toString().trim());
+                return true;
             }
+            return false;  // 让系统继续处理其他事件
         });
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
         intent.putExtra("query", query);
         startActivity(intent);
 

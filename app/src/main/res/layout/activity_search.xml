@@ -60,6 +60,7 @@
             android:gravity="center"
             android:hint="Page"
             android:inputType="number"
+            android:imeOptions="actionSearch"
             android:textSize="20sp" />
 
         <Button

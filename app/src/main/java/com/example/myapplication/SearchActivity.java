@@ -4,10 +4,13 @@ import static java.lang.Thread.sleep;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -35,6 +38,7 @@ public class SearchActivity extends AppCompatActivity {
     private EditText editText;
     private Button previousButton, nextButton;
     private int page = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,24 +52,19 @@ public class SearchActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         previousButton = findViewById(R.id.btnPrevious);
         nextButton = findViewById(R.id.btnNext);
+        editText = findViewById(R.id.etPageInput);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(movieAdapter);
 
         tryChangePage(1);
 
-        /*
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    page = Integer.parseInt(editText.getText().toString().trim());
-                    OnlineSearchUtil.searchMoviesByPage(query, page, callback);
-                    return true;
-                }
-                return false;
+        editText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                tryChangePage(Integer.parseInt(editText.getText().toString().trim()));
+                return true;
             }
+            return false;
         });
-        */
 
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +99,7 @@ public class SearchActivity extends AppCompatActivity {
                     loading(false);
                 });
             }
+
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
@@ -119,10 +119,11 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
-    private void loading(boolean p){
+
+    private void loading(boolean p) {
         previousButton.setEnabled(!p);
         nextButton.setEnabled(!p);
-        if(p) progressBar.setVisibility(View.VISIBLE);
+        if (p) progressBar.setVisibility(View.VISIBLE);
         else progressBar.setVisibility(View.GONE);
     }
 
