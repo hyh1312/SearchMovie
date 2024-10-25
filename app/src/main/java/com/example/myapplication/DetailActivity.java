@@ -3,13 +3,13 @@ package com.example.myapplication;
 import static com.example.myapplication.network.OnlineSearchUtil.searchDetail;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.ui.model.Detail;
 import com.example.myapplication.viewmodel.DetailViewModel;
 
@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,12 +30,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private ImageView poster;
-    private TextView title;
-    private TextView info;
-    private TextView plot;
-    private TextView directorWriterCast;
-    private TextView languageCountry;
-    private TextView boxOfficeAwards;
+    private TextView title, yearRatedRuntime, genre, plot, directorWriterCast, languageCountry, boxOfficeAwards, imdbRatingVotes, productionWebsite;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +41,21 @@ public class DetailActivity extends AppCompatActivity {
 
         poster = findViewById(R.id.movie_poster);
         title = findViewById(R.id.movie_title);
-        info = findViewById(R.id.movie_info);
+        yearRatedRuntime = findViewById(R.id.movie_year_rated_runtime);
+        genre = findViewById(R.id.movie_genre);
         plot = findViewById(R.id.movie_plot);
         directorWriterCast = findViewById(R.id.movie_director_writer_cast);
         languageCountry = findViewById(R.id.movie_language_country);
         boxOfficeAwards = findViewById(R.id.movie_boxoffice_awards);
+        imdbRatingVotes = findViewById(R.id.movie_imdb_rating_votes);
+        productionWebsite = findViewById(R.id.movie_production_website);
 
         progressBar = findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
 
         String id = getIntent().getStringExtra("id"); // id 传过来
 
-        // id ->(searchutil)-> jsondata ->(viewmodel)-> ui
+        // id ->(searchutil)-> jsondata ->(viewmodel)-> detail ->(activity)-> ui
 
         searchDetail(id, new Callback() {
             @Override
@@ -98,8 +96,19 @@ public class DetailActivity extends AppCompatActivity {
         });
 
     }
+
     private void showDetail(Detail detail){
         title.setText(detail.getTitle());
-        //
+        yearRatedRuntime.setText(detail.getYear() + ", " + detail.getRated() + ", " + detail.getRuntime());
+        genre.setText(detail.getGenre());
+        plot.setText(detail.getPlot());
+        directorWriterCast.setText("Director: " + detail.getDirector() + "\nWriter: " + detail.getWriter() + "\nCast: " + detail.getActors());
+        languageCountry.setText("Language: " + detail.getLanguage() + "\nCountry: " + detail.getCountry());
+        boxOfficeAwards.setText("Box Office: " + detail.getBoxOffice() + "\nAwards: " + detail.getAwards());
+        imdbRatingVotes.setText("IMDb Rating: " + detail.getImdbRating() + "\nVotes: " + detail.getImdbVotes());
+        productionWebsite.setText("Production: " + detail.getProduction() + "\nWebsite: " + detail.getWebsite());
+
+        // Assuming posterUrl contains a valid URL to load the image using a library like Glide or Picasso
+        Glide.with(this).load(detail.getPosterUrl()).into(poster);
     }
 }

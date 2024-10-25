@@ -16,11 +16,31 @@ public class DetailViewModel {
         assert response.body() != null;
         String jsonData = response.body().string();
         JSONObject jsonObject = new JSONObject(jsonData);
-        String title = jsonObject.getString("Title");
-        String year = jsonObject.getString("Year");
-        String poster = jsonObject.getString("Poster");
-        String id = jsonObject.getString("imdbID");
-        return new Detail(title,year,poster,id);
+        return new Detail(
+                jsonObject.optString("Title"),
+                jsonObject.optString("Year"),
+                jsonObject.optString("Rated"),
+                jsonObject.optString("Released"),
+                jsonObject.optString("Runtime"),
+                jsonObject.optString("Genre"),
+                jsonObject.optString("Director"),
+                jsonObject.optString("Writer"),
+                jsonObject.optString("Actors"),
+                jsonObject.optString("Plot"),
+                jsonObject.optString("Language"),
+                jsonObject.optString("Country"),
+                jsonObject.optString("Awards"),
+                jsonObject.optString("Poster"),
+                jsonObject.optString("Metascore"),
+                jsonObject.optString("imdbRating"),
+                jsonObject.optString("imdbVotes"),
+                jsonObject.optString("imdbID"),
+                jsonObject.optString("Type"),
+                jsonObject.optString("DVD"),
+                jsonObject.optString("BoxOffice"),
+                jsonObject.optString("Production"),
+                jsonObject.optString("Website")
+        );
     }
 }
 
