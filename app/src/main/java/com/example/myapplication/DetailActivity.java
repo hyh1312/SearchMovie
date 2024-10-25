@@ -16,6 +16,7 @@ import com.example.myapplication.viewmodel.DetailViewModel;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONException;
 
@@ -28,11 +29,16 @@ import okhttp3.Response;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private ProgressBar progressBar;
     private ImageView poster;
     private TextView title, yearRatedRuntime, genre, plot, directorWriterCast, languageCountry, boxOfficeAwards, imdbRatingVotes, productionWebsite;
+    private ProgressBar progressBar;
 
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +56,13 @@ public class DetailActivity extends AppCompatActivity {
         imdbRatingVotes = findViewById(R.id.movie_imdb_rating_votes);
         productionWebsite = findViewById(R.id.movie_production_website);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         progressBar = findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
+
 
         String id = getIntent().getStringExtra("id"); // id 传过来
 

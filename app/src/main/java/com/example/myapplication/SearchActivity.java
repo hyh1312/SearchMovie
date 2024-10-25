@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -37,12 +38,18 @@ public class SearchActivity extends AppCompatActivity {
     private Button previousButton, nextButton;
     private int page = 1;
 
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_search);
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
         query = getIntent().getStringExtra("query");
         movieAdapter = new MovieAdapter(movieList, this);
@@ -51,8 +58,14 @@ public class SearchActivity extends AppCompatActivity {
         previousButton = findViewById(R.id.btnPrevious);
         nextButton = findViewById(R.id.btnNext);
         editText = findViewById(R.id.etPageInput);
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(movieAdapter);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tryChangePage(1);
 
@@ -63,14 +76,12 @@ public class SearchActivity extends AppCompatActivity {
             }
             return false;
         });
-
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tryChangePage(page - 1);
             }
         });
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
