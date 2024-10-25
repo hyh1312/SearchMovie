@@ -118,8 +118,6 @@
                 android:textSize="16sp"
                 android:textColor="#333" />
 
-
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

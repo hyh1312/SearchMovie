@@ -23,7 +23,7 @@ public class OnlineSearchUtil {
         search(URL + "&s=" + name + "&page=" + page, callback);
     }
 
-    public static void searchDetails(String id, Callback callback) {
-        search(URL + "&t=" + id, callback);
+    public static void searchDetail(String id, Callback callback) {
+        search(URL + "&i=" + id + "&plot=full" , callback);
     }
 }

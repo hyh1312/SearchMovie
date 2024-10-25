@@ -1,6 +1,6 @@
 package com.example.myapplication.ui.model;
 
-import com.example.myapplication.Movie;
+import com.example.myapplication.ui.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;

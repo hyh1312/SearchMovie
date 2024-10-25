@@ -1,16 +1,12 @@
 package com.example.myapplication;
 
-import static java.lang.Thread.sleep;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.network.OnlineSearchUtil;
 import com.example.myapplication.ui.model.ListModel;
+import com.example.myapplication.ui.model.Movie;
+import com.example.myapplication.viewmodel.SearchViewModel;
 
 import java.io.IOException;
 import java.util.List;

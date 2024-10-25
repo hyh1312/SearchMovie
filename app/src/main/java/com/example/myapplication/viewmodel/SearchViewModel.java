@@ -1,5 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.viewmodel;
 
+import com.example.myapplication.ui.model.Movie;
 import com.example.myapplication.ui.model.ListModel;
 
 import org.json.JSONArray;

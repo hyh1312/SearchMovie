@@ -1,8 +1,8 @@
-package com.example.myapplication;
-public class Movie {
+package com.example.myapplication.ui.model;
+public class Detail {
     private final String title,year,posterUrl,id;
 
-    public Movie(String title, String year, String posterUrl, String id) {
+    public Detail(String title, String year, String posterUrl, String id) {
         this.title = title;
         this.year = year;
         this.posterUrl = posterUrl;
