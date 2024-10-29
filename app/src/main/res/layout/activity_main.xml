@@ -25,8 +25,7 @@
         android:text="电影搜索"
         android:textSize="30sp"
         android:layout_margin="30dp"
-        android:gravity="center"
-        />
+        android:gravity="center" />
 
     <EditText
         android:id="@+id/search_input"
@@ -50,6 +49,16 @@
         android:layout_marginHorizontal="30dp"
         android:text="搜索"
         android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/history_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="300dp"
+        android:background="@color/white"
+        android:scaleType="centerCrop"
+        android:src="@drawable/history" />
 
 
 </LinearLayout>
