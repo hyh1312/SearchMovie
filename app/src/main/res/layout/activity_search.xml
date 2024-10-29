@@ -22,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@id/recycler_view"
-        android:layout_marginBottom="80dp"
         android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,46 +38,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/bottomPaginationLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view" >
-
-        <Button
-            android:id="@+id/btnPrevious"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:text="&lt;"
-            android:textSize="30sp" />
-
-        <EditText
-            android:id="@+id/etPageInput"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:hint="Page"
-            android:imeOptions="actionSearch"
-            android:inputType="number"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:text="&gt;"
-            android:textSize="30sp" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

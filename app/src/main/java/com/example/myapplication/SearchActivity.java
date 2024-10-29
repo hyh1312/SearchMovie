@@ -2,10 +2,8 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -34,8 +32,6 @@ public class SearchActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private List<Movie> movieList = ListModel.movieList;
     private String query;
-    private EditText editText;
-    private Button previousButton, nextButton;
     private int page = 1;
 
 
@@ -55,9 +51,6 @@ public class SearchActivity extends AppCompatActivity {
         movieAdapter = new MovieAdapter(movieList, this);
         progressBar = findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
-        previousButton = findViewById(R.id.btnPrevious);
-        nextButton = findViewById(R.id.btnNext);
-        editText = findViewById(R.id.etPageInput);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -67,25 +60,30 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        tryChangePage(1);
+        loadMore();
 
-        editText.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                tryChangePage(Integer.parseInt(editText.getText().toString().trim()));
-                return true;
-            }
-            return false;
-        });
-        previousButton.setOnClickListener(new View.OnClickListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            LinearLayoutManager layoutManager;
+            int itemCount, lastPosition, lastItemCount=-1;
+
             @Override
-            public void onClick(View view) {
-                tryChangePage(page - 1);
-            }
-        });
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tryChangePage(page + 1);
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                // super.onScrolled(recyclerView, dx, dy);
+
+                if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+                    layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    itemCount = layoutManager.getItemCount();
+                    lastPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+                } else {
+                    Log.e("OnLoadMoreListener", "The OnLoadMoreListener only support LinearLayoutManager");
+                    return;
+                }
+
+                if (lastItemCount != itemCount && lastPosition == itemCount - 1) {
+                    //lastItemCount 是为了防止加载数据后，位置仍然符合lastPosition == itemCount - 1，因此会继续加载
+                    lastItemCount = itemCount;
+                    loadMore();
+                }
             }
         });
     }
@@ -98,9 +96,9 @@ public class SearchActivity extends AppCompatActivity {
         movieAdapter.notifyDataSetChanged();
     }
 
-    private void tryChangePage(int newPage) {
+    private void loadMore() {
         loading(true);
-        OnlineSearchUtil.searchMoviesByPage(query, newPage, new Callback() {
+        OnlineSearchUtil.searchMoviesByPage(query, page, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 runOnUiThread(() -> {
@@ -113,8 +111,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
-                    movieList = SearchViewModel.addList(response);
-                    page = newPage;
+                    SearchViewModel.addtoList(movieList,response);
+                    page++;
                     runOnUiThread(() -> {
                         movieAdapter.notifyDataSetChanged();
                         loading(false);
@@ -130,8 +128,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void loading(boolean p) {
-        previousButton.setEnabled(!p);
-        nextButton.setEnabled(!p);
         if (p) progressBar.setVisibility(View.VISIBLE);
         else progressBar.setVisibility(View.GONE);
     }

@@ -15,9 +15,9 @@ public class OnlineSearchUtil {
         call.enqueue(callback);
     }
 
-    public static void searchMovies(String name, Callback callback) {
-        search(URL + "&s=" + name, callback);
-    }
+//    public static void searchMovies(String name, Callback callback) {
+//        search(URL + "&s=" + name, callback);
+//    }
 
     public static void searchMoviesByPage(String name,int page, Callback callback) {
         search(URL + "&s=" + name + "&page=" + page, callback);
