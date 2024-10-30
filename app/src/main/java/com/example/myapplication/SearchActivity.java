@@ -30,7 +30,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private MovieAdapter movieAdapter;
     private ProgressBar progressBar;
-    private List<Movie> movieList = ListModel.movieList;
+    private final List<Movie> movieList = ListModel.movieList;
     private String query;
     private int page = 1;
 
@@ -62,28 +62,10 @@ public class SearchActivity extends AppCompatActivity {
 
         loadMore();
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            LinearLayoutManager layoutManager;
-            int itemCount, lastPosition, lastItemCount=-1;
-
+        recyclerView.addOnScrollListener(new OnLoadMoreListener(){
             @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                // super.onScrolled(recyclerView, dx, dy);
-
-                if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
-                    layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    itemCount = layoutManager.getItemCount();
-                    lastPosition = layoutManager.findLastCompletelyVisibleItemPosition();
-                } else {
-                    Log.e("OnLoadMoreListener", "The OnLoadMoreListener only support LinearLayoutManager");
-                    return;
-                }
-
-                if (lastItemCount != itemCount && lastPosition == itemCount - 1) {
-                    //lastItemCount 是为了防止加载数据后，位置仍然符合lastPosition == itemCount - 1，因此会继续加载
-                    lastItemCount = itemCount;
-                    loadMore();
-                }
+            public void onLoadMore() {
+                loadMore();
             }
         });
     }
