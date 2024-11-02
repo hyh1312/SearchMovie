@@ -28,13 +28,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false);
 //        LayoutInflater 用于将 XML 布局文件转换成代码中的 View 对象。
 //        .from(parent.getContext())：从 parent（RecyclerView） 中获取上下文（Context），用于访问资源和创建视图。
 //        parent：这是 RecyclerView 本身，告诉 LayoutInflater 加载的视图将添加到 RecyclerView 中。
 //        false：暂时不将加载的视图添加到父布局中，因为 RecyclerView 会自行管理视图的添加。
-
         return new MovieViewHolder(view);
     }
 
@@ -44,7 +42,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.tvTitle.setText(movie.getTitle());
         holder.tvYear.setText(movie.getYear());
         Glide.with(context).load(movie.getPosterUrl()).into(holder.imgPoster);
+
         holder.itemView.setOnClickListener(v -> {
+            write here! ;
             Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra("id", movie.getId());
             context.startActivity(intent);

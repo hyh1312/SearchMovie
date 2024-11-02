@@ -23,15 +23,12 @@ public class HistoryActivity extends MovieListBaseActivity {
         loadMore();
     }
 
-    private MovieDatabase db;
-    private MovieDao movieDao;
-
     @SuppressLint({"NotifyDataSetChanged", "CheckResult"})
     @Override
     public void loadMore() {
-        db = Room.databaseBuilder(getApplicationContext(),
+        MovieDatabase db = Room.databaseBuilder(getApplicationContext(),
                 MovieDatabase.class, "database-name").build();
-        movieDao = db.movieDao();
+        MovieDao movieDao = db.movieDao();
         movieDao.getAll()
                 .subscribeOn(Schedulers.io())  // 在 I/O 线程中执行查询
                 .observeOn(AndroidSchedulers.mainThread())  // 在主线程中处理结果

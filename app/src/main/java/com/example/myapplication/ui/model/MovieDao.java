@@ -10,16 +10,17 @@ import androidx.room.Update;
 import java.util.List;
 
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 
 @Dao
 public interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMovies(Movie... movies);
+    public Completable insertMovies(Movie... movies);
 
     @Delete
-    void delete(Movie Movie);
+    public Completable delete(Movie Movie);
 
     @Update
     public void updateMovies(Movie... Movies);
