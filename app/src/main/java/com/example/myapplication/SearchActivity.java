@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +23,7 @@ public class SearchActivity extends MovieListBaseActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         query = getIntent().getStringExtra("query");
+        toolbar.setTitle("搜索结果");
         loadMore();
     }
 

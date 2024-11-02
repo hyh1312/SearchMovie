@@ -9,6 +9,10 @@ import androidx.room.Update;
 
 import java.util.List;
 
+
+import io.reactivex.rxjava3.core.Single;
+
+
 @Dao
 public interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,11 +25,12 @@ public interface MovieDao {
     public void updateMovies(Movie... Movies);
 
     @Query("SELECT * FROM movie")
-    List<Movie> getAll();
+    public Single<List<Movie>> getAll();
 
+    /*
     @Query("SELECT * from Movie WHERE uid = :uid")
-    Movie getMovie(int uid);
+    public Movie getMovie(int uid);
 
-    // ...
+    */
 
 }
