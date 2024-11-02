@@ -10,8 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.network.OnlineSearchUtil;
 import com.example.myapplication.ui.model.Detail;
-import com.example.myapplication.viewmodel.DetailViewModel;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -81,7 +81,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 // Log.d("tag",response.body().string());
                 try {
-                    Detail detail = DetailViewModel.getDetail(response);
+                    Detail detail = OnlineSearchUtil.getDetail(response);
                     runOnUiThread(() -> {
                         showDetail(detail);
                         progressBar.setVisibility(View.GONE);
@@ -118,8 +118,6 @@ public class DetailActivity extends AppCompatActivity {
         boxOfficeAwards.setText("Box Office: " + detail.getBoxOffice() + "\nAwards: " + detail.getAwards());
         imdbRatingVotes.setText("IMDb Rating: " + detail.getImdbRating() + "\nVotes: " + detail.getImdbVotes());
         productionWebsite.setText("Production: " + detail.getProduction() + "\nWebsite: " + detail.getWebsite());
-
-        // Assuming posterUrl contains a valid URL to load the image using a library like Glide or Picasso
         Glide.with(this).load(detail.getPosterUrl()).into(poster);
     }
 }

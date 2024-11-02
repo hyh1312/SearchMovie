@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.activity.EdgeToEdge;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         hbtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this,HistoryActivity.class)));
     }
 
-    private void searchMovies(String query) {
+    private void searchMovies(@NonNull String query) {
         if (query.isEmpty()) {
             Toast.makeText(this, "请输入电影名称", Toast.LENGTH_SHORT).show();
             return;
