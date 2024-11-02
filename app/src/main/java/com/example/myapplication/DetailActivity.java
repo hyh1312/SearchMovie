@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.network.OnlineSearchUtil;
-import com.example.myapplication.ui.model.Detail;
+import com.example.myapplication.model.Detail;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;

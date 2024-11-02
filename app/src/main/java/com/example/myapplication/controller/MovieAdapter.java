@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.DetailActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.ui.model.Movie;
+import com.example.myapplication.model.Movie;
 
 import java.util.List;
 

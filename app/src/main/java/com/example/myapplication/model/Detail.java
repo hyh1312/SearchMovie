@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.model;
+package com.example.myapplication.model;
 public class Detail {
     private final String title, year, rated, released, runtime, genre, director, writer, actors, plot, language, country, awards, posterUrl, metascore, imdbRating, imdbVotes, imdbID, type, dvdRelease, boxOffice, production, website;
 

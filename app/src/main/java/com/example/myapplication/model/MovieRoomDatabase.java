@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.model;
+package com.example.myapplication.model;
 
 import android.content.Context;
 
@@ -10,19 +10,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Movie.class}, version = 1, exportSchema = false)
-public abstract class MovieDatabase extends RoomDatabase {
+public abstract class MovieRoomDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
-    private static volatile MovieDatabase INSTANCE;
+
+    private static volatile MovieRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static MovieDatabase getDatabase(final Context context) {
+    static MovieRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (MovieDatabase.class) {
+            synchronized (MovieRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    MovieDatabase.class, "word_database")
+                                    MovieRoomDatabase.class, "word_database")
                             .build();
                 }
             }

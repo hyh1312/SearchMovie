@@ -1,7 +1,7 @@
 package com.example.myapplication.network;
 
-import com.example.myapplication.ui.model.Detail;
-import com.example.myapplication.ui.model.Movie;
+import com.example.myapplication.model.Detail;
+import com.example.myapplication.model.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;

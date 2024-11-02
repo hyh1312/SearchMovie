@@ -7,8 +7,8 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.room.Room;
 
-import com.example.myapplication.ui.model.MovieDao;
-import com.example.myapplication.ui.model.MovieDatabase;
+import com.example.myapplication.model.MovieDao;
+import com.example.myapplication.model.MovieRoomDatabase;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -26,8 +26,16 @@ public class HistoryActivity extends MovieListBaseActivity {
     @SuppressLint({"NotifyDataSetChanged", "CheckResult"})
     @Override
     public void loadMore() {
-        MovieDatabase db = Room.databaseBuilder(getApplicationContext(),
-                MovieDatabase.class, "database-name").build();
+
+        isLoading(false);
+    }
+
+/*
+    @SuppressLint({"NotifyDataSetChanged", "CheckResult"})
+    @Override
+    public void loadMore() {
+        MovieRoomDatabase db = Room.databaseBuilder(getApplicationContext(),
+                MovieRoomDatabase.class, "database-name").build();
         MovieDao movieDao = db.movieDao();
         movieDao.getAll()
                 .subscribeOn(Schedulers.io())  // 在 I/O 线程中执行查询
@@ -41,5 +49,7 @@ public class HistoryActivity extends MovieListBaseActivity {
                 });
         isLoading(false);
     }
+
+ */
 
 }

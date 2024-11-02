@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.myapplication.ui.model.Movie;
+import com.example.myapplication.model.Movie;
 import com.example.myapplication.controller.MovieAdapter;
 import com.example.myapplication.controller.OnLoadMoreListener;
 
