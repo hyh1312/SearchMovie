@@ -12,11 +12,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.myapplication.ui.model.ListModel;
 import com.example.myapplication.ui.model.Movie;
 import com.example.myapplication.controller.MovieAdapter;
 import com.example.myapplication.controller.OnLoadMoreListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,10 +24,9 @@ public abstract class MovieListBaseActivity extends AppCompatActivity {
 
     protected MovieAdapter movieAdapter;
     protected ProgressBar progressBar;
-    protected final List<Movie> movieList = ListModel.movieList;
+    protected List<Movie> movieList = new ArrayList<>();
     protected RecyclerView recyclerView;
     protected Toolbar toolbar;
-    protected int page = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

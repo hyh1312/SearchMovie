@@ -2,7 +2,10 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.myapplication.network.OnlineSearchUtil;
@@ -14,10 +17,12 @@ import okhttp3.Response;
 public class SearchActivity extends MovieListBaseActivity {
 
     private String query;
+    protected int page = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         query = getIntent().getStringExtra("query");
         loadMore();
     }

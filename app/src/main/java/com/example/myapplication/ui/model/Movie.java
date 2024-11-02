@@ -1,6 +1,14 @@
 package com.example.myapplication.ui.model;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Movie {
-    private final String title,year,posterUrl,id;
+    @PrimaryKey
+    public int uid;
+    public int time;
+    private String title,year,posterUrl,id;
 
     public Movie(String title, String year, String posterUrl, String id) {
         this.title = title;

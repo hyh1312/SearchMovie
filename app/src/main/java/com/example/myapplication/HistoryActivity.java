@@ -1,43 +1,32 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.room.Room;
+import com.example.myapplication.ui.model.Movie;
+import com.example.myapplication.ui.model.MovieDao;
+import com.example.myapplication.ui.model.MovieDatabase;
 
-import com.example.myapplication.data.Record;
-import com.example.myapplication.data.RecordDao;
-import com.example.myapplication.data.RecordDatabase;
+public class HistoryActivity extends MovieListBaseActivity {
 
-import java.util.List;
-
-
-public class HistoryActivity extends AppCompatActivity {
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_history);
+        toolbar.setTitle("浏览历史");
+        // loadMore();
+    }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-/*
-        RecordDatabase db = Room.databaseBuilder(getApplicationContext(),
-                RecordDatabase.class, "database-name").build();
-        RecordDao recordDao = db.recordDao();
-        List<Record> recordList = recordDao.getAll();
-*/
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void loadMore() {
+        MovieDatabase db = Room.databaseBuilder(getApplicationContext(),
+                MovieDatabase.class, "database-name").build();
+        MovieDao movieDao = db.recordDao();
+        movieList = movieDao.getAll();
+        movieAdapter.notifyDataSetChanged();
+        isLoading(false);
     }
 }
