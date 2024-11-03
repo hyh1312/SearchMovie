@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,6 +13,7 @@ import com.example.myapplication.controller.HistoryViewModel;
 public class HistoryActivity extends MovieListBaseActivity {
 
     private HistoryViewModel historyViewModel;
+    private Button clearButton;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -18,7 +21,9 @@ public class HistoryActivity extends MovieListBaseActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        toolbar.setTitle("浏览历史");
+        toolbar.setTitle("浏览记录");
+        clearButton=findViewById(R.id.clear_button);
+        clearButton.setVisibility(View.VISIBLE);
 
         historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
         historyViewModel.getAllMovies().observe(this, movies -> {
@@ -26,6 +31,10 @@ public class HistoryActivity extends MovieListBaseActivity {
             isLoading(false);
         });
 
+        clearButton.setOnClickListener(view -> {
+            historyViewModel.deleteAll();
+            movieAdapter.clear();
+        });
     }
 
     @SuppressLint({"NotifyDataSetChanged", "CheckResult"})

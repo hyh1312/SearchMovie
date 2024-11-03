@@ -37,7 +37,12 @@ public class MovieRepository {
     public void insert(Movie movie) {
         MovieRoomDatabase.databaseWriteExecutor.execute(() -> {
             mMovieDao.insert(movie);
-            // Log.d("insert","insert "+movie.getTitle() );
+        });
+    }
+
+    public void deleteAll() {
+        MovieRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mMovieDao.deleteAll();
         });
     }
 }
