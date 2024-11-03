@@ -47,6 +47,7 @@ public class SearchActivity extends MovieListBaseActivity {
                     movieAdapter.addAll( OnlineSearchUtil.getList(response) );
                     page++;
                     runOnUiThread(() -> {
+                        movieAdapter.notifyDataSetChanged();
                         isLoading(false);
                     });
                 } catch (Exception e) {

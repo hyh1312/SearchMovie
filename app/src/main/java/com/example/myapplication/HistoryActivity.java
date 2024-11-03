@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.lifecycle.ViewModelProvider;
@@ -34,6 +35,7 @@ public class HistoryActivity extends MovieListBaseActivity {
         clearButton.setOnClickListener(view -> {
             historyViewModel.deleteAll();
             movieAdapter.clear();
+            Toast.makeText(this, "清除成功", Toast.LENGTH_SHORT).show();
         });
     }
 

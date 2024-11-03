@@ -79,7 +79,8 @@ public class MovieAdapter extends RecyclerView.Adapter <MovieViewHolder> {
     @SuppressLint("NotifyDataSetChanged")
     public void addAll(List<Movie> movies) {
         movieList.addAll(movies);
-        notifyDataSetChanged();
+        // notifyDataSetChanged();
+        // 有一个得在子线程调用，所以在主线程 notify
     }
 
     @SuppressLint("NotifyDataSetChanged")
