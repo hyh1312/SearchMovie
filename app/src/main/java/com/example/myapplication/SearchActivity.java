@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.myapplication.network.OnlineSearchUtil;
 import java.io.IOException;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -43,10 +44,9 @@ public class SearchActivity extends MovieListBaseActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
-                    OnlineSearchUtil.addToList(movieAdapter,response);
+                    movieAdapter.addAll( OnlineSearchUtil.getList(response) );
                     page++;
                     runOnUiThread(() -> {
-                        movieAdapter.notifyDataSetChanged();
                         isLoading(false);
                     });
                 } catch (Exception e) {

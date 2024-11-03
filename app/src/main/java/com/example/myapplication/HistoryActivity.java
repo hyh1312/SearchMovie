@@ -2,14 +2,11 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.controller.HistoryViewModel;
-
-import java.util.ArrayList;
 
 public class HistoryActivity extends MovieListBaseActivity {
 
@@ -34,7 +31,7 @@ public class HistoryActivity extends MovieListBaseActivity {
     @SuppressLint({"NotifyDataSetChanged", "CheckResult"})
     @Override
     public void loadMore() {
-
+        isLoading(false);
     }
 
 /*

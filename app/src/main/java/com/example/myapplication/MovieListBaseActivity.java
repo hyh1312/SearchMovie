@@ -38,7 +38,7 @@ public abstract class MovieListBaseActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         progressBar = findViewById(R.id.loading_spinner);
-        movieAdapter = new MovieAdapter(new ArrayList<>(), this);
+        movieAdapter = new MovieAdapter(new ArrayList<>(), this,getApplication());
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(movieAdapter);
@@ -66,7 +66,6 @@ public abstract class MovieListBaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         movieAdapter.clear();
-        movieAdapter.notifyDataSetChanged();
     }
 
     public void isLoading(boolean p) {

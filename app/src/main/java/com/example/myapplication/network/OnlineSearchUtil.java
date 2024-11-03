@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -32,19 +33,21 @@ public class OnlineSearchUtil {
     public static void searchDetail(String id, Callback callback) {
         search(URL + "&i=" + id + "&plot=full" , callback);
     }
-    public static void addToList(MovieAdapter adapter, Response response) throws JSONException, IOException {
+    public static List<Movie> getList(Response response) throws JSONException, IOException {
         assert response.body() != null;
         String jsonData = response.body().string();
         JSONObject jsonObject = new JSONObject(jsonData);
         JSONArray searchArray = jsonObject.getJSONArray("Search");
+        List<Movie> movieList = new ArrayList<>();
         for (int i = 0; i < searchArray.length(); i++) {
             JSONObject movieObject = searchArray.getJSONObject(i);
             String title = movieObject.getString("Title");
             String year = movieObject.getString("Year");
             String poster = movieObject.getString("Poster");
             String id = movieObject.getString("imdbID");
-            adapter.add(new Movie(title, year, poster,id));
+            movieList.add(new Movie(title, year, poster,id));
         }
+        return movieList;
     }
     public static Detail getDetail(Response response) throws JSONException, IOException {
         assert response.body() != null;

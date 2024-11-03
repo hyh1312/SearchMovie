@@ -13,7 +13,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.DetailActivity;
-import com.example.myapplication.R;
 import com.example.myapplication.model.Movie;
 import com.example.myapplication.model.MovieRepository;
 
@@ -26,10 +25,10 @@ public class MovieAdapter extends RecyclerView.Adapter <MovieViewHolder> {
     private Context context;
     private MovieRepository movieRepository;
 
-    public MovieAdapter(List<Movie> movieList, Context context) {
+    public MovieAdapter(List<Movie> movieList, Context context,Application application) {
         this.movieList = movieList;
         this.context = context;
-        movieRepository = new MovieRepository(context);
+        movieRepository = new MovieRepository(application);
     }
 
     @NonNull
@@ -48,9 +47,12 @@ public class MovieAdapter extends RecyclerView.Adapter <MovieViewHolder> {
         holder.itemView.setOnClickListener(v -> {
             movieRepository.insert(movie);
 
+/*
             movieRepository.getAllMovies().observe((LifecycleOwner) context, movies -> {
                 Log.d("insert","title "+ movies.get(0).getTitle());
             });
+ */
+
             Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra("id", movie.getId());
             context.startActivity(intent);
@@ -71,6 +73,12 @@ public class MovieAdapter extends RecyclerView.Adapter <MovieViewHolder> {
     @SuppressLint("NotifyDataSetChanged")
     public void add(Movie movie) {
         movieList.add(movie);
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void addAll(List<Movie> movies) {
+        movieList.addAll(movies);
         notifyDataSetChanged();
     }
 
