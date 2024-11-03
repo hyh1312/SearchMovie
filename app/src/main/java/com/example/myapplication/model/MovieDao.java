@@ -10,25 +10,25 @@ import androidx.room.Query;
 import java.util.List;
 
 
-import io.reactivex.rxjava3.core.Completable;
-
-
 @Dao
 public interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insert(Movie Movie); // Completable
 
-    @Query("SELECT * FROM movie")
+    @Query("SELECT * FROM movie_table")
     public LiveData<List<Movie>> getAll(); // Single
 
-/*
     @Delete
     public void delete(Movie Movie);
+
+    @Query("DELETE FROM movie_table")
+    void deleteAll();
+/*
 
     @Update
     public void updateMovies(Movie... Movies);
 
-    @Query("SELECT * from Movie WHERE uid = :uid")
+    @Query("SELECT * from movie_table WHERE uid = :uid")
     public Movie getMovie(int uid);
 
 */

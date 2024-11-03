@@ -5,29 +5,39 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.room.Room;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myapplication.model.MovieDao;
-import com.example.myapplication.model.MovieRoomDatabase;
+import com.example.myapplication.controller.HistoryViewModel;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import java.util.ArrayList;
 
 public class HistoryActivity extends MovieListBaseActivity {
 
+    private HistoryViewModel historyViewModel;
+
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
         toolbar.setTitle("浏览历史");
-        loadMore();
+
+        historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
+        historyViewModel.getAllMovies().observe(this, movies -> {
+            movieList = new ArrayList<>(movies);
+            movieAdapter.notifyDataSetChanged();
+        });
+        Toast.makeText(getApplicationContext(),
+                Integer.toString(movieList.size()),
+                Toast.LENGTH_LONG).show();
+        isLoading(false);
     }
 
     @SuppressLint({"NotifyDataSetChanged", "CheckResult"})
     @Override
     public void loadMore() {
 
-        isLoading(false);
     }
 
 /*
