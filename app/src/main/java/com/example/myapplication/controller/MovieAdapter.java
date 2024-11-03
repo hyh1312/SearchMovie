@@ -1,4 +1,5 @@
 package com.example.myapplication.controller;
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.model.Movie;
 import com.example.myapplication.model.MovieRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter <MovieViewHolder> {
@@ -58,6 +60,24 @@ public class MovieAdapter extends RecyclerView.Adapter <MovieViewHolder> {
     @Override
     public int getItemCount() {
         return movieList.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void update(List<Movie> movies) {
+        movieList = new ArrayList<>(movies);
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void add(Movie movie) {
+        movieList.add(movie);
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void clear() {
+        movieList.clear();
+        notifyDataSetChanged();
     }
 
 }

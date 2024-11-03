@@ -24,7 +24,6 @@ public abstract class MovieListBaseActivity extends AppCompatActivity {
 
     protected MovieAdapter movieAdapter;
     protected ProgressBar progressBar;
-    protected List<Movie> movieList = new ArrayList<>();
     protected RecyclerView recyclerView;
     protected Toolbar toolbar;
 
@@ -39,12 +38,12 @@ public abstract class MovieListBaseActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         progressBar = findViewById(R.id.loading_spinner);
-        progressBar.setVisibility(View.VISIBLE);
-
-        movieAdapter = new MovieAdapter(movieList, this);
+        movieAdapter = new MovieAdapter(new ArrayList<>(), this);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(movieAdapter);
+
+        isLoading(true);
 
         recyclerView.addOnScrollListener(new OnLoadMoreListener() {
             @Override
@@ -66,7 +65,7 @@ public abstract class MovieListBaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        movieList.clear();
+        movieAdapter.clear();
         movieAdapter.notifyDataSetChanged();
     }
 

@@ -25,13 +25,10 @@ public class HistoryActivity extends MovieListBaseActivity {
 
         historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
         historyViewModel.getAllMovies().observe(this, movies -> {
-            movieList = new ArrayList<>(movies);
-            movieAdapter.notifyDataSetChanged();
+            movieAdapter.update(movies);
+            isLoading(false);
         });
-        Toast.makeText(getApplicationContext(),
-                Integer.toString(movieList.size()),
-                Toast.LENGTH_LONG).show();
-        isLoading(false);
+
     }
 
     @SuppressLint({"NotifyDataSetChanged", "CheckResult"})

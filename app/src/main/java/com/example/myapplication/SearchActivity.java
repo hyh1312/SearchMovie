@@ -43,7 +43,7 @@ public class SearchActivity extends MovieListBaseActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
-                    OnlineSearchUtil.addToList(movieList,response);
+                    OnlineSearchUtil.addToList(movieAdapter,response);
                     page++;
                     runOnUiThread(() -> {
                         movieAdapter.notifyDataSetChanged();

@@ -1,5 +1,6 @@
 package com.example.myapplication.network;
 
+import com.example.myapplication.controller.MovieAdapter;
 import com.example.myapplication.model.Detail;
 import com.example.myapplication.model.Movie;
 
@@ -31,7 +32,7 @@ public class OnlineSearchUtil {
     public static void searchDetail(String id, Callback callback) {
         search(URL + "&i=" + id + "&plot=full" , callback);
     }
-    public static void addToList(List<Movie> movieList, Response response) throws JSONException, IOException {
+    public static void addToList(MovieAdapter adapter, Response response) throws JSONException, IOException {
         assert response.body() != null;
         String jsonData = response.body().string();
         JSONObject jsonObject = new JSONObject(jsonData);
@@ -42,7 +43,7 @@ public class OnlineSearchUtil {
             String year = movieObject.getString("Year");
             String poster = movieObject.getString("Poster");
             String id = movieObject.getString("imdbID");
-            movieList.add(new Movie(title, year, poster,id));
+            adapter.add(new Movie(title, year, poster,id));
         }
     }
     public static Detail getDetail(Response response) throws JSONException, IOException {

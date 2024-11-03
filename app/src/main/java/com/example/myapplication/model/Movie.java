@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "movie_table")
 public class Movie {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int uid;
     public int time;
     private final String title, year, posterUrl, id;
