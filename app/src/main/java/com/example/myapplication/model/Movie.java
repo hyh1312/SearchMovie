@@ -1,14 +1,17 @@
 package com.example.myapplication.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "movie_table")
 public class Movie {
-    @PrimaryKey(autoGenerate = true)
-    public int uid;
+    @PrimaryKey
+    @NonNull
+    public String id;
     public int time;
-    private final String title, year, posterUrl, id;
+
+    private final String title, year, posterUrl;
 
     public Movie(String title, String year, String posterUrl, String id) {
         this.title = title;

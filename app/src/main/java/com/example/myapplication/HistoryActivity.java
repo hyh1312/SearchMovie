@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.controller.HistoryViewModel;
 
+import java.util.Collection;
+import java.util.Collections;
+
 public class HistoryActivity extends MovieListBaseActivity {
 
     private HistoryViewModel historyViewModel;
@@ -28,6 +31,7 @@ public class HistoryActivity extends MovieListBaseActivity {
 
         historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
         historyViewModel.getAllMovies().observe(this, movies -> {
+            Collections.reverse(movies); // 按时间倒序展示
             movieAdapter.update(movies);
             isLoading(false);
         });
