@@ -1,9 +1,13 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -48,8 +52,9 @@ public abstract class MovieListBaseActivity extends AppCompatActivity {
         recyclerView.addOnScrollListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
+                // Toast.makeText(MovieListBaseActivity.this, "loadMore", Toast.LENGTH_SHORT).show();
                 isLoading(true);
-                loadMore();
+                loadMore(false);
             }
         });
 
@@ -72,7 +77,15 @@ public abstract class MovieListBaseActivity extends AppCompatActivity {
         runOnUiThread(()-> progressBar.setVisibility(p ? View.VISIBLE : View.GONE));
     }
 
-    public abstract void loadMore();
+    public abstract void loadMore(boolean isFirstPage);
+
+    public void setStatusBarColor(Activity activity){
+        Window window = activity.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(0xFF6650a4);
+    }
+
 }
 
 // 如何简化SearchActivity，使得不同Activity能够复用逻辑？

@@ -23,13 +23,14 @@ public class SearchActivity extends MovieListBaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        setStatusBarColor(this);
         query = getIntent().getStringExtra("query");
         toolbar.setTitle("搜索结果");
-        loadMore();
+        loadMore(true);
     }
 
     @Override
-    public void loadMore() {
+    public void loadMore(boolean isFirstPage) {
         isLoading(true);
         OnlineSearchUtil.searchMoviesByPage(query, page, new Callback() {
             @Override
@@ -52,7 +53,7 @@ public class SearchActivity extends MovieListBaseActivity {
                     });
                 } catch (Exception e) {
                     runOnUiThread(() -> {
-                        Toast.makeText(SearchActivity.this, "未找到电影", Toast.LENGTH_SHORT).show();
+                        if(isFirstPage) Toast.makeText(SearchActivity.this, "未找到电影", Toast.LENGTH_SHORT).show();
                         isLoading(false);
                     });
                 }
