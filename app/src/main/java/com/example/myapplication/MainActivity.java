@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private EditText et;
+    private boolean isSearching = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,27 +32,34 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        hbtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, HistoryActivity.class)));
+        sbtn.setOnClickListener(view -> searchMovies(et.getText().toString().trim()));
+
         et.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchMovies(et.getText().toString().trim());
                 return true;
             }
-            return false;  // 让系统继续处理其他事件
+            return true;
         });
-
-        sbtn.setOnClickListener(view -> searchMovies(et.getText().toString().trim()));
-        hbtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this,HistoryActivity.class)));
     }
 
     private void searchMovies(@NonNull String query) {
+        if (isSearching) return;
         if (query.isEmpty()) {
             Toast.makeText(this, "请输入电影名称", Toast.LENGTH_SHORT).show();
             return;
         }
+        isSearching = true;
         Intent intent = new Intent(MainActivity.this, SearchActivity.class);
         intent.putExtra("query", query);
         startActivity(intent);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isSearching = false;
     }
 }
 
